@@ -1,6 +1,5 @@
 ﻿using Discord;
 using Microsoft.EntityFrameworkCore;
-using Skuld.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +67,7 @@ namespace Skuld.Core.Models
         /// <param name="user">Discord User to insert</param>
         /// <returns>User object or null if exists</returns>
         public async Task<User> InsertOrGetUserAsync(IUser user)
-            => await InsertUserAsync(new User
+            => await InsertOrGetUserAsync(new User
             {
                 AvatarUrl = new Uri(user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl()),
                 Id = user.Id,
@@ -80,7 +79,7 @@ namespace Skuld.Core.Models
         /// </summary>
         /// <param name="user">User Class to insert</param>
         /// <returns>User object or null if exists</returns>
-        public async Task<User> InsertUserAsync(User user)
+        public async Task<User> InsertOrGetUserAsync(User user)
         {
             if (!Users.Any(x => x.Id == user.Id))
             {
@@ -93,15 +92,6 @@ namespace Skuld.Core.Models
 
             return null;
         }
-
-        public async Task<Guild> InsertGuildAsync(IGuild guild, string prefix, string moneyname, string moneyicon)
-            => await InsertGuildAsync(new Guild
-            {
-                Id = guild.Id,
-                Prefix = prefix,
-                MoneyName = moneyname,
-                MoneyIcon = moneyicon
-            }).ConfigureAwait(false);
 
         public async Task<Guild> InsertGuildAsync(Guild guild)
         {
@@ -124,7 +114,7 @@ namespace Skuld.Core.Models
         {
             long returnkarma = 0;
 
-            if (Pastas != null && Pastas.Count() > 0)
+            if (Pastas != null && Pastas.Any())
             {
                 var ownedpastas = Pastas.AsQueryable().Where(x => x.OwnerId == UserId);
                 var pastaVotes = new List<PastaVotes>();
@@ -177,7 +167,7 @@ namespace Skuld.Core.Models
                             XP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.XP),
                             TotalXP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.TotalXP)
                         };
-                        uxp.Level = DiscordUtilities.GetLevelFromTotalXP(uxp.TotalXP, DiscordUtilities.PHI);
+                        uxp.Level = DatabaseUtilities.GetLevelFromTotalXP(uxp.TotalXP, 1.618);
 
                         entries.Add(uxp);
                     }
@@ -238,7 +228,7 @@ namespace Skuld.Core.Models
                             XP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.XP),
                             TotalXP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.TotalXP)
                         };
-                        uxp.Level = DiscordUtilities.GetLevelFromTotalXP(uxp.TotalXP, DiscordUtilities.PHI);
+                        uxp.Level = DatabaseUtilities.GetLevelFromTotalXP(uxp.TotalXP, 1.618);
 
                         entries.Add(uxp);
                     }
@@ -277,19 +267,30 @@ namespace Skuld.Core.Models
             }
         }
 
-        public async Task<Guild> GetGuildAsync(IGuild guild)
+        public async Task<Guild> GetOrInsertGuildAsync(IGuild guild, string Prefix = "sk!", string MoneyName = "Diamonds", string MoneyIcon = "💠")
         {
             var gld = Guilds.FirstOrDefault(x => x.Id == guild.Id);
 
-            var config = await GetConfigAsync(SkuldAppContext.ConfigurationId).ConfigureAwait(false);
-
             if (gld == null)
-                return await InsertGuildAsync(guild, config.Prefix, "Diamonds", "💠").ConfigureAwait(false);
+            {
+                gld = new Guild
+                {
+                    Id = guild.Id,
+                    Name = guild.Name,
+                    MoneyName = MoneyName,
+                    MoneyIcon = MoneyIcon,
+                    Prefix = Prefix,
+                };
+
+                Guilds.Add(gld);
+
+                await SaveChangesAsync().ConfigureAwait(false);
+            }
 
             return gld;
         }
 
-        public async Task<User> GetUserAsync(IUser user)
+        public async Task<User> GetOrInsertUserAsync(IUser user)
         {
             var usr = Users.FirstOrDefault(x => x.Id == user.Id);
 
@@ -299,7 +300,7 @@ namespace Skuld.Core.Models
             return usr;
         }
 
-        public async Task<SkuldConfig> GetConfigAsync(string configId = null)
+        public async Task<SkuldConfig> GetOrInsertConfigAsync(string configId = null)
         {
             if (configId == null)
                 return await Configurations.AsQueryable().FirstOrDefaultAsync().ConfigureAwait(false);

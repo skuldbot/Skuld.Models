@@ -3,6 +3,7 @@
     public class Guild
     {
         public ulong Id { get; set; }
+        public string Name { get; set; }
         public string JoinMessage { get; set; }
         public string LeaveMessage { get; set; }
         public ulong JoinRole { get; set; }
