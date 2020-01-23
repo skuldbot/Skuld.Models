@@ -67,12 +67,21 @@ namespace Skuld.Core.Models
         /// <param name="user">Discord User to insert</param>
         /// <returns>User object or null if exists</returns>
         public async Task<User> InsertOrGetUserAsync(IUser user)
-            => await InsertOrGetUserAsync(new User
+        {
+            User usr = Users.FirstOrDefault(x => x.Id == user.Id);
+
+            if(usr == null)
             {
-                AvatarUrl = new Uri(user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl()),
-                Id = user.Id,
-                Username = user.Username
-            }).ConfigureAwait(false);
+                return await InsertOrGetUserAsync(new User
+                {
+                    AvatarUrl = new Uri(user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl()),
+                    Id = user.Id,
+                    Username = user.Username
+                }).ConfigureAwait(false);
+            }
+
+            return usr;
+        }
 
         /// <summary>
         /// Insert and returns user, else null if already exists
