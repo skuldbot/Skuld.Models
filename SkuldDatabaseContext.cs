@@ -24,6 +24,7 @@ namespace Skuld.Core.Models
         public DbSet<Guild> Guilds { get; set; }
         public DbSet<Pasta> Pastas { get; set; }
         public DbSet<PastaVotes> PastaVotes { get; set; }
+        public DbSet<PersistentRole> PersistentRoles { get; set; }
         public DbSet<Reputation> Reputations { get; set; }
         public DbSet<UserCommandUsage> UserCommandUsage { get; set; }
         public DbSet<UserExperience> UserXp { get; set; }
