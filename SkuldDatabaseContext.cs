@@ -236,9 +236,9 @@ namespace Skuld.Core.Models
                         {
                             UserId = xp.UserId,
                             XP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.XP),
-                            TotalXP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.TotalXP)
+                            TotalXP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.TotalXP),
+                            Level = xp.Level
                         };
-                        uxp.Level = DatabaseUtilities.GetLevelFromTotalXP(uxp.TotalXP, 1.618);
 
                         entries.Add(uxp);
                     }
