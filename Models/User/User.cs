@@ -23,7 +23,7 @@ namespace Skuld.Core.Models
         /// </summary>
         public ulong Pats { get; set; } = 0;
 
-        public Uri AvatarUrl { get; set; } = null;
+        public string AvatarUrl { get; set; } = null;
         public string BanReason { get; set; } = null;
         public bool RecurringBlock { get; set; } = false;
         public bool UnlockedCustBG { get; set; } = false;
@@ -33,14 +33,14 @@ namespace Skuld.Core.Models
 
         public bool IsUpToDate(SocketUser user)
         {
-            var avi = user.GetAvatarUrl() ?? user.GetAvatarUrl();
+            var avi = user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl();
 
             var username = Username == user.Username;
             bool avatar = false;
 
             if (AvatarUrl != null)
             {
-                if (AvatarUrl.AbsoluteUri == avi)
+                if (AvatarUrl == avi)
                     avatar = true;
                 else
                     avatar = false;
