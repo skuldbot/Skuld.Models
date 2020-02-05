@@ -75,7 +75,7 @@ namespace Skuld.Core.Models
             {
                 return await InsertOrGetUserAsync(new User
                 {
-                    AvatarUrl = new Uri(user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl()),
+                    AvatarUrl = user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl(),
                     Id = user.Id,
                     Username = user.Username
                 }).ConfigureAwait(false);
@@ -124,9 +124,9 @@ namespace Skuld.Core.Models
         {
             long returnkarma = 0;
 
-            if (Pastas != null && Pastas.Any())
+            if (Pastas.Any())
             {
-                var ownedpastas = Pastas.AsQueryable().Where(x => x.OwnerId == UserId);
+                var ownedpastas = Pastas.ToList().Where(x => x.OwnerId == UserId);
                 var pastaVotes = new List<PastaVotes>();
 
                 foreach (var pasta in ownedpastas)
@@ -277,7 +277,7 @@ namespace Skuld.Core.Models
             }
         }
 
-        public async Task<Guild> GetOrInsertGuildAsync(IGuild guild, string Prefix = "sk!", string MoneyName = "Diamonds", string MoneyIcon = "💠")
+        public async Task<Guild> GetOrInsertGuildAsync(IGuild guild, string Prefix = "sk!", string MoneyName = "Woolong", string MoneyIcon = "₩")
         {
             var gld = Guilds.FirstOrDefault(x => x.Id == guild.Id);
 
