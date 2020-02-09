@@ -13,7 +13,7 @@ namespace Skuld.Core.Models
         /// <summary>
         /// Gets the experience multiplier from Users Minutes in Voice
         /// </summary>
-        /// <param name="expIndeterminate">Indeterminate Value for parabola</param>
+        /// <param name="expDeterminate">Determinate Value for parabola</param>
         /// <param name="minMinutes">Minimum Minutes In voice</param>
         /// <param name="maxExperience">Maximum XP to grant</param>
         /// <param name="timeInVoice">Users time in voice by minutes</param>

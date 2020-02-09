@@ -294,6 +294,16 @@ namespace Skuld.Core.Models
 
                 Guilds.Add(gld);
 
+                Features.Add(new GuildFeatures
+                {
+                    Id = guild.Id
+                });
+
+                Modules.Add(new GuildModules
+                {
+                    Id = guild.Id
+                });
+
                 await SaveChangesAsync().ConfigureAwait(false);
             }
 
