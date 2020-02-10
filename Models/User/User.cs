@@ -1,17 +1,23 @@
 ﻿using Discord.WebSocket;
+using Skuld.Core.Extensions;
+using Skuld.Core.Extensions.Verification;
+using Skuld.Core.Utilities;
 using System;
+using System.Configuration;
+using System.Threading.Tasks;
 
 namespace Skuld.Core.Models
 {
     public class User
     {
         public ulong Id { get; set; } = 0;
+
         public string Username { get; set; } = null;
-        public ulong Money { get; set; } = 2500;
+        public string AvatarUrl { get; set; } = null;
+
         public string Title { get; set; } = null;
-        public string Description { get; set; } = null;
-        public ulong LastDaily { get; set; } = 0;
         public string Language { get; set; } = "en-GB";
+        public string TimeZone { get; set; } = TimeZoneInfo.Utc.Id;
 
         /// <summary>
         /// Times been Patted
@@ -23,33 +29,24 @@ namespace Skuld.Core.Models
         /// </summary>
         public ulong Pats { get; set; } = 0;
 
-        public string AvatarUrl { get; set; } = null;
-        public string BanReason { get; set; } = null;
-        public bool RecurringBlock { get; set; } = false;
         public bool UnlockedCustBG { get; set; } = false;
         public string Background { get; set; } = "#3F51B5";
+
         public ulong Flags { get; set; } = 0;
-        public string TimeZone { get; set; } = TimeZoneInfo.Utc.Id;
+        public string BanReason { get; set; } = null;
+
+        public ulong Money { get; set; } = 2500;
+        public uint Streak { get; set; } = 0;
+        public ulong LastDaily { get; set; } = 0;
+
+        public bool RecurringBlock { get; set; } = false;
 
         public bool IsUpToDate(SocketUser user)
         {
-            var avi = user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl();
+            string avi = user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl();
 
-            var username = Username == user.Username;
-            bool avatar = false;
-
-            if (AvatarUrl != null)
-            {
-                if (AvatarUrl == avi)
-                    avatar = true;
-                else
-                    avatar = false;
-            }
-            else
-            {
-                if (avi != null)
-                    avatar = false;
-            }
+            bool username = Username == user.Username;
+            bool avatar = AvatarUrl == avi;
 
             return (username && avatar) == true;
         }

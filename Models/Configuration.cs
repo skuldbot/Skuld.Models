@@ -43,6 +43,8 @@ namespace Skuld.Core.Models
         public ulong VoiceExpMinMinutes { get; set; } = 5;
         public ulong VoiceExpMaxGrant { get; set; } = 100000;
         public ulong IssueChannel { get; set; }
+        public ulong MaxStreak { get; set; } = 7;
+        public ulong StreakLimitDays { get; set; } = 1;
 
         #endregion BotPreferences
 
