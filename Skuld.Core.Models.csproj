@@ -6,8 +6,8 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
-    <AssemblyVersion>2020.2.93.0</AssemblyVersion>
-    <FileVersion>2020.2.93.0</FileVersion>
+    <AssemblyVersion>2020.2.102.0</AssemblyVersion>
+    <FileVersion>2020.2.102.0</FileVersion>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 

@@ -41,6 +41,8 @@ namespace Skuld.Core.Models
 
         public bool RecurringBlock { get; set; } = false;
 
+        public ulong PrestigeLevel { get; set; } = 0;
+
         public bool IsUpToDate(SocketUser user)
         {
             string avi = user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl();

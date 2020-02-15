@@ -10,6 +10,9 @@ namespace Skuld.Core.Models
         public static ulong GetLevelFromTotalXP(ulong totalxp, double growthmod)
             => (ulong)(Math.Sqrt(totalxp / (50 * growthmod)));
 
+        public static double GetPrestigeModifier(ulong prestigeLevel, double growthmod)
+            => Math.Clamp(prestigeLevel * (growthmod / 2), 1, 25);
+
         /// <summary>
         /// Gets the experience multiplier from Users Minutes in Voice
         /// </summary>

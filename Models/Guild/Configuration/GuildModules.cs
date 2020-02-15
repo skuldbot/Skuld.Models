@@ -1,4 +1,6 @@
-﻿namespace Skuld.Core.Models
+﻿using Discord.Commands;
+
+namespace Skuld.Core.Models
 {
     public class GuildModules
     {
@@ -15,5 +17,24 @@
         public bool Space { get; set; } = true;
         public bool Stats { get; set; } = true;
         public bool Weeb { get; set; } = true;
+
+        public bool ModuleDisabled(CommandInfo command)
+        {
+            return (command.Module.Name.ToLowerInvariant()) switch
+            {
+                "accounts" => !Accounts,
+                "actions" => !Actions,
+                "admin" => !Admin,
+                "fun" => !Fun,
+                "gambling" => !Gambling,
+                "information" => !Information,
+                "lewd" => !Lewd,
+                "search" => !Search,
+                "space" => !Space,
+                "stats" => !Stats,
+                "weeb" => !Weeb,
+                _ => false,
+            };
+        }
     }
 }
