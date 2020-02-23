@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skuld.Core.Models;
 
 namespace Skuld.Core.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
-    [Migration("20200209215526_AddMaxStreakToDaily")]
-    partial class AddMaxStreakToDaily
+    partial class SkuldDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,6 +52,29 @@ namespace Skuld.Core.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CustomCommands");
+                });
+
+            modelBuilder.Entity("Skuld.Core.Models.DonatorKey", b =>
+                {
+                    b.Property<ulong>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<Guid>("KeyCode")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("Redeemed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<ulong>("RedeemedWhen")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<ulong>("Redeemer")
+                        .HasColumnType("bigint unsigned");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DonatorKeys");
                 });
 
             modelBuilder.Entity("Skuld.Core.Models.Guild", b =>
@@ -468,6 +489,9 @@ namespace Skuld.Core.Models.Migrations
                         .HasColumnType("bigint unsigned");
 
                     b.Property<ulong>("Patted")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<ulong>("PrestigeLevel")
                         .HasColumnType("bigint unsigned");
 
                     b.Property<bool>("RecurringBlock")

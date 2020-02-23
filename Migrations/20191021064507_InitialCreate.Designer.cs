@@ -7,7 +7,7 @@ using Skuld.Core.Models;
 
 namespace Skuld.Core.Models.Migrations
 {
-    [DbContext(typeof(SkuldDatabaseContext))]
+    [DbContext(typeof(SkuldDbContext))]
     [Migration("20191021064507_InitialCreate")]
     partial class InitialCreate
     {

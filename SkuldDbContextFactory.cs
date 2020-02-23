@@ -4,14 +4,14 @@ using System;
 
 namespace Skuld.Core.Models
 {
-    public class SkuldDbContextFactory : IDesignTimeDbContextFactory<SkuldDatabaseContext>
+    public class SkuldDbContextFactory : IDesignTimeDbContextFactory<SkuldDbContext>
     {
-        public SkuldDatabaseContext CreateDbContext(string[] args = null)
+        public SkuldDbContext CreateDbContext(string[] args = null)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<SkuldDatabaseContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<SkuldDbContext>();
             optionsBuilder.UseMySql(Environment.GetEnvironmentVariable("SKULD_CONNSTR"));
 
-            return new SkuldDatabaseContext(optionsBuilder.Options);
+            return new SkuldDbContext(optionsBuilder.Options);
         }
     }
 }

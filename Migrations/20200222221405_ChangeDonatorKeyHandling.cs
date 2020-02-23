@@ -2,13 +2,13 @@
 
 namespace Skuld.Core.Models.Migrations
 {
-    public partial class AddPrestigeLevel : Migration
+    public partial class ChangeDonatorKeyHandling : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<ulong>(
-                name: "PrestigeLevel",
-                table: "Users",
+                name: "RedeemedWhen",
+                table: "DonatorKeys",
                 nullable: false,
                 defaultValue: 0ul);
         }
@@ -16,8 +16,8 @@ namespace Skuld.Core.Models.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "PrestigeLevel",
-                table: "Users");
+                name: "RedeemedWhen",
+                table: "DonatorKeys");
         }
     }
 }

@@ -8,7 +8,7 @@ using Skuld.Core.Models;
 
 namespace Skuld.Core.Models.Migrations
 {
-    [DbContext(typeof(SkuldDatabaseContext))]
+    [DbContext(typeof(SkuldDbContext))]
     [Migration("20200113225835_AddGithubRepository")]
     partial class AddGithubRepository
     {

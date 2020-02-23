@@ -1,4 +1,6 @@
-﻿namespace Skuld.Core.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Skuld.Core.Models
 {
     public class Guild
     {

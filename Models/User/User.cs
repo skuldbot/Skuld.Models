@@ -1,10 +1,5 @@
 ﻿using Discord.WebSocket;
-using Skuld.Core.Extensions;
-using Skuld.Core.Extensions.Verification;
-using Skuld.Core.Utilities;
 using System;
-using System.Configuration;
-using System.Threading.Tasks;
 
 namespace Skuld.Core.Models
 {

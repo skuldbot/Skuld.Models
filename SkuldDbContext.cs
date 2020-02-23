@@ -1,21 +1,21 @@
 ﻿using Discord;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Skuld.Core.Models
 {
-    public class SkuldDatabaseContext : DbContext
+    public class SkuldDbContext : DbContext
     {
-        public SkuldDatabaseContext(DbContextOptions<SkuldDatabaseContext> options) : base(options)
+        public SkuldDbContext(DbContextOptions<SkuldDbContext> options) : base(options)
         {
         }
 
         public DbSet<BlockedAction> BlockedActions { get; set; }
         public DbSet<SkuldConfig> Configurations { get; set; }
         public DbSet<CustomCommand> CustomCommands { get; set; }
+        public DbSet<DonatorKey> DonatorKeys { get; set; }
         public DbSet<GuildFeatures> Features { get; set; }
         public DbSet<IAmRole> IAmRoles { get; set; }
         public DbSet<Issue> Issues { get; set; }
@@ -71,7 +71,7 @@ namespace Skuld.Core.Models
         {
             User usr = Users.FirstOrDefault(x => x.Id == user.Id);
 
-            if(usr == null)
+            if (usr == null)
             {
                 return await InsertOrGetUserAsync(new User
                 {

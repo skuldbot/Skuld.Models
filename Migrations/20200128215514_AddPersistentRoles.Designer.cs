@@ -8,7 +8,7 @@ using Skuld.Core.Models;
 
 namespace Skuld.Core.Models.Migrations
 {
-    [DbContext(typeof(SkuldDatabaseContext))]
+    [DbContext(typeof(SkuldDbContext))]
     [Migration("20200128215514_AddPersistentRoles")]
     partial class AddPersistentRoles
     {
