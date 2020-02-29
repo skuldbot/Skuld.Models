@@ -47,5 +47,13 @@ namespace Skuld.Core.Models
 
             return (username && avatar) == true;
         }
+
+        public bool IsDonator
+        {
+            get
+            {
+                return (Flags & 1 << 2) != 0;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Discord.Commands;
+using System.Reflection;
 
 namespace Skuld.Core.Models
 {
@@ -20,21 +21,9 @@ namespace Skuld.Core.Models
 
         public bool ModuleDisabled(CommandInfo command)
         {
-            return (command.Module.Name.ToLowerInvariant()) switch
-            {
-                "accounts" => !Accounts,
-                "actions" => !Actions,
-                "admin" => !Admin,
-                "fun" => !Fun,
-                "gambling" => !Gambling,
-                "information" => !Information,
-                "lewd" => !Lewd,
-                "search" => !Search,
-                "space" => !Space,
-                "stats" => !Stats,
-                "weeb" => !Weeb,
-                _ => false,
-            };
+            PropertyInfo propInfo = typeof(GuildModules).GetProperty(command.Module.Name);
+
+            return !(bool)propInfo.GetValue(this);
         }
     }
 }
