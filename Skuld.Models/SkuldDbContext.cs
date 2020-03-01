@@ -22,6 +22,7 @@ namespace Skuld.Core.Models
         public DbSet<LevelRewards> LevelRewards { get; set; }
         public DbSet<GuildModules> Modules { get; set; }
         public DbSet<Guild> Guilds { get; set; }
+        public DbSet<ReminderObject> Reminders { get; set; }
         public DbSet<Pasta> Pastas { get; set; }
         public DbSet<PastaVotes> PastaVotes { get; set; }
         public DbSet<PersistentRole> PersistentRoles { get; set; }

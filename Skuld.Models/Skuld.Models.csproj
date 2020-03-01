@@ -6,8 +6,8 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
-    <AssemblyVersion>2020.2.114.0</AssemblyVersion>
-    <FileVersion>2020.2.114.0</FileVersion>
+    <AssemblyVersion>2020.3.7.0</AssemblyVersion>
+    <FileVersion>2020.3.7.0</FileVersion>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Skuld.Core\Skuld.Core.csproj" />
+    <ProjectReference Include="..\..\Skuld.Core\Skuld.Core\Skuld.Core.csproj" />
   </ItemGroup>
 
 </Project>

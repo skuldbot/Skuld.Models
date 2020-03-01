@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skuld.Core.Models;
 
 namespace Skuld.Core.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
-    partial class SkuldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200229231754_AddReminders")]
+    partial class AddReminders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,6 +141,9 @@ namespace Skuld.Core.Models.Migrations
                     b.Property<bool>("Pinning")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<bool>("StackingRoles")
+                        .HasColumnType("tinyint(1)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Features");
@@ -193,18 +198,18 @@ namespace Skuld.Core.Models.Migrations
 
             modelBuilder.Entity("Skuld.Core.Models.IAmRole", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint unsigned");
 
                     b.Property<ulong>("GuildId")
                         .HasColumnType("bigint unsigned");
 
-                    b.Property<int>("LevelRequired")
-                        .HasColumnType("int");
+                    b.Property<ulong>("LevelRequired")
+                        .HasColumnType("bigint unsigned");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<ulong>("Price")
+                        .HasColumnType("bigint unsigned");
 
                     b.Property<ulong>("RequiredRoleId")
                         .HasColumnType("bigint unsigned");
@@ -245,15 +250,15 @@ namespace Skuld.Core.Models.Migrations
 
             modelBuilder.Entity("Skuld.Core.Models.LevelRewards", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint unsigned");
 
                     b.Property<ulong>("GuildId")
                         .HasColumnType("bigint unsigned");
 
-                    b.Property<int>("LevelRequired")
-                        .HasColumnType("int");
+                    b.Property<ulong>("LevelRequired")
+                        .HasColumnType("bigint unsigned");
 
                     b.Property<ulong>("RoleId")
                         .HasColumnType("bigint unsigned");
@@ -324,6 +329,35 @@ namespace Skuld.Core.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PersistentRoles");
+                });
+
+            modelBuilder.Entity("Skuld.Core.Models.ReminderObject", b =>
+                {
+                    b.Property<ushort>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint unsigned");
+
+                    b.Property<ulong>("ChannelId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("MessageLink")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<ulong>("Timeout")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reminders");
                 });
 
             modelBuilder.Entity("Skuld.Core.Models.Reputation", b =>
