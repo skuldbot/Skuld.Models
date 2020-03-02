@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skuld.Core.Models;
 
 namespace Skuld.Core.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
-    partial class SkuldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200302014528_RepeatableReminders")]
+    partial class RepeatableReminders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

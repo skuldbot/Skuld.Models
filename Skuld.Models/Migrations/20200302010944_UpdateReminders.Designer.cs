@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skuld.Core.Models;
 
 namespace Skuld.Core.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
-    partial class SkuldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200302010944_UpdateReminders")]
+    partial class UpdateReminders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -349,9 +351,6 @@ namespace Skuld.Core.Models.Migrations
 
                     b.Property<string>("MessageLink")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<bool>("Repeats")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<ulong>("Timeout")
                         .HasColumnType("bigint unsigned");

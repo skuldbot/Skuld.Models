@@ -29,7 +29,7 @@ namespace Skuld.Core.Models
             var result = Math.Pow(expDeterminate * (timeInVoice - minMinutes), 2); //do math
 
             if (result > maxExperience)
-                result = maxExperience; //clamp to 100 as limit
+                result = maxExperience; //clamp to maxExperience as limit
 
             if (result < 0)
                 result = 0; //if negative clamp to zero
