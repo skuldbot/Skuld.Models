@@ -2,22 +2,22 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Skuld.Models;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Skuld.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
-    partial class SkuldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200304095014_AutoLevelRoles")]
+    partial class AutoLevelRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Skuld.Models.BlockedAction", b =>
+            modelBuilder.Entity("Skuld.Core.Models.BlockedAction", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("BlockedActions");
                 });
 
-            modelBuilder.Entity("Skuld.Models.CustomCommand", b =>
+            modelBuilder.Entity("Skuld.Core.Models.CustomCommand", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("CustomCommands");
                 });
 
-            modelBuilder.Entity("Skuld.Models.DonatorKey", b =>
+            modelBuilder.Entity("Skuld.Core.Models.DonatorKey", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("DonatorKeys");
                 });
 
-            modelBuilder.Entity("Skuld.Models.Guild", b =>
+            modelBuilder.Entity("Skuld.Core.Models.Guild", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,36 +122,12 @@ namespace Skuld.Models.Migrations
                     b.Property<string>("Prefix")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<bool>("SelfStarring")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("StarDeleteIfSourceDelete")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("StarEmote")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("StarRange1")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("StarRange2")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("StarRange3")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<ushort>("StarReactAmount")
-                        .HasColumnType("smallint unsigned");
-
-                    b.Property<ulong>("StarboardChannel")
-                        .HasColumnType("bigint unsigned");
-
                     b.HasKey("Id");
 
                     b.ToTable("Guilds");
                 });
 
-            modelBuilder.Entity("Skuld.Models.GuildFeatures", b =>
+            modelBuilder.Entity("Skuld.Core.Models.GuildFeatures", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,15 +142,12 @@ namespace Skuld.Models.Migrations
                     b.Property<bool>("StackingRoles")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<bool>("Starboard")
-                        .HasColumnType("tinyint(1)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Features");
                 });
 
-            modelBuilder.Entity("Skuld.Models.GuildModules", b =>
+            modelBuilder.Entity("Skuld.Core.Models.GuildModules", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -221,7 +194,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("Modules");
                 });
 
-            modelBuilder.Entity("Skuld.Models.IAmRole", b =>
+            modelBuilder.Entity("Skuld.Core.Models.IAmRole", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -247,7 +220,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("IAmRoles");
                 });
 
-            modelBuilder.Entity("Skuld.Models.Issue", b =>
+            modelBuilder.Entity("Skuld.Core.Models.Issue", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -273,7 +246,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("Issues");
                 });
 
-            modelBuilder.Entity("Skuld.Models.LevelRewards", b =>
+            modelBuilder.Entity("Skuld.Core.Models.LevelRewards", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -296,7 +269,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("LevelRewards");
                 });
 
-            modelBuilder.Entity("Skuld.Models.Pasta", b =>
+            modelBuilder.Entity("Skuld.Core.Models.Pasta", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -319,7 +292,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("Pastas");
                 });
 
-            modelBuilder.Entity("Skuld.Models.PastaVotes", b =>
+            modelBuilder.Entity("Skuld.Core.Models.PastaVotes", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -339,7 +312,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("PastaVotes");
                 });
 
-            modelBuilder.Entity("Skuld.Models.PersistentRole", b =>
+            modelBuilder.Entity("Skuld.Core.Models.PersistentRole", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -359,10 +332,13 @@ namespace Skuld.Models.Migrations
                     b.ToTable("PersistentRoles");
                 });
 
-            modelBuilder.Entity("Skuld.Models.ReminderObject", b =>
+            modelBuilder.Entity("Skuld.Core.Models.ReminderObject", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<ulong>("ChannelId")
                         .HasColumnType("bigint unsigned");
 
                     b.Property<string>("Content")
@@ -391,7 +367,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("Reminders");
                 });
 
-            modelBuilder.Entity("Skuld.Models.Reputation", b =>
+            modelBuilder.Entity("Skuld.Core.Models.Reputation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -411,7 +387,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("Reputations");
                 });
 
-            modelBuilder.Entity("Skuld.Models.SkuldConfig", b =>
+            modelBuilder.Entity("Skuld.Core.Models.SkuldConfig", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
@@ -523,56 +499,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("Configurations");
                 });
 
-            modelBuilder.Entity("Skuld.Models.StarboardConfigurable", b =>
-                {
-                    b.Property<ulong>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("GuildId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("TargetId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StarboardConfigurable");
-                });
-
-            modelBuilder.Entity("Skuld.Models.StarboardVote", b =>
-                {
-                    b.Property<ulong>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("ChannelId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("GuildId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("MessageAuthorId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("MessageId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("StarboardMessageId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("VoterId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<bool>("WasSourceMessageReaction")
-                        .HasColumnType("tinyint(1)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StarboardVotes");
-                });
-
-            modelBuilder.Entity("Skuld.Models.User", b =>
+            modelBuilder.Entity("Skuld.Core.Models.User", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -631,7 +558,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Skuld.Models.UserCommandUsage", b =>
+            modelBuilder.Entity("Skuld.Core.Models.UserCommandUsage", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -651,7 +578,7 @@ namespace Skuld.Models.Migrations
                     b.ToTable("UserCommandUsage");
                 });
 
-            modelBuilder.Entity("Skuld.Models.UserExperience", b =>
+            modelBuilder.Entity("Skuld.Core.Models.UserExperience", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -678,29 +605,6 @@ namespace Skuld.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserXp");
-                });
-
-            modelBuilder.Entity("Skuld.Models.WeeklyPot", b =>
-                {
-                    b.Property<ulong>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("Amount")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("GuildId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("LastGranted")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("UserId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GuildWeeklyPots");
                 });
 #pragma warning restore 612, 618
         }

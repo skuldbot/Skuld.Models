@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skuld.Models;
 
 namespace Skuld.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
-    partial class SkuldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200325075810_AddStarboardBlackWhiteList")]
+    partial class AddStarboardBlackWhiteList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -563,9 +565,6 @@ namespace Skuld.Models.Migrations
 
                     b.Property<ulong>("VoterId")
                         .HasColumnType("bigint unsigned");
-
-                    b.Property<bool>("WasSourceMessageReaction")
-                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 

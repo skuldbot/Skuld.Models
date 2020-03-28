@@ -22,10 +22,14 @@ namespace Skuld.Models
         public DbSet<LevelRewards> LevelRewards { get; set; }
         public DbSet<GuildModules> Modules { get; set; }
         public DbSet<Guild> Guilds { get; set; }
+        public DbSet<WeeklyPot> GuildWeeklyPots { get; set; }
         public DbSet<ReminderObject> Reminders { get; set; }
         public DbSet<Pasta> Pastas { get; set; }
         public DbSet<PastaVotes> PastaVotes { get; set; }
         public DbSet<PersistentRole> PersistentRoles { get; set; }
+        public DbSet<StarboardConfigurable> StarboardBlacklist { get; set; }
+        public DbSet<StarboardConfigurable> StarboardWhitelist { get; set; }
+        public DbSet<StarboardVote> StarboardVotes { get; set; }
         public DbSet<Reputation> Reputations { get; set; }
         public DbSet<UserCommandUsage> UserCommandUsage { get; set; }
         public DbSet<UserExperience> UserXp { get; set; }

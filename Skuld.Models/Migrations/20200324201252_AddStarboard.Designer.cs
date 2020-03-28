@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skuld.Models;
 
 namespace Skuld.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
-    partial class SkuldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200324201252_AddStarboard")]
+    partial class AddStarboard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -523,23 +525,6 @@ namespace Skuld.Models.Migrations
                     b.ToTable("Configurations");
                 });
 
-            modelBuilder.Entity("Skuld.Models.StarboardConfigurable", b =>
-                {
-                    b.Property<ulong>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("GuildId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.Property<ulong>("TargetId")
-                        .HasColumnType("bigint unsigned");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StarboardConfigurable");
-                });
-
             modelBuilder.Entity("Skuld.Models.StarboardVote", b =>
                 {
                     b.Property<ulong>("Id")
@@ -563,9 +548,6 @@ namespace Skuld.Models.Migrations
 
                     b.Property<ulong>("VoterId")
                         .HasColumnType("bigint unsigned");
-
-                    b.Property<bool>("WasSourceMessageReaction")
-                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
