@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Skuld.Core.Models.Migrations
+namespace Skuld.Models.Migrations
 {
     public partial class RepeatableReminders : Migration
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Skuld.Core.Models.Commands
+namespace Skuld.Models.Commands
 {
     public struct CommandSkuld : IEquatable<CommandSkuld>
     {

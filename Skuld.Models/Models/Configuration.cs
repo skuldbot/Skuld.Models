@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Skuld.Core.Models
+namespace Skuld.Models
 {
     public class SkuldConfig
     {

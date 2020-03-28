@@ -3,10 +3,8 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Skuld.Core.Models;
 
-namespace Skuld.Core.Models.Migrations
+namespace Skuld.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
     [Migration("20200222174354_AddDonatorKeys")]

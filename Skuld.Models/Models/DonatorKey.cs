@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Skuld.Core.Models
+namespace Skuld.Models
 {
     public class DonatorKey
     {

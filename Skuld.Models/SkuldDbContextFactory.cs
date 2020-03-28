@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using System;
 
-namespace Skuld.Core.Models
+namespace Skuld.Models
 {
     public class SkuldDbContextFactory : IDesignTimeDbContextFactory<SkuldDbContext>
     {

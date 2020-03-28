@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Skuld.Core.Models
+﻿namespace Skuld.Models
 {
     public class BlockedAction
     {
-        [Key]
         public ulong Id { get; set; }
 
         public ulong Blocker { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace Skuld.Core.Models
+﻿namespace Skuld.Models
 {
     public class LevelRewards
     {
@@ -6,5 +6,6 @@
         public ulong GuildId { get; set; }
         public ulong RoleId { get; set; }
         public ulong LevelRequired { get; set; }
+        public bool Automatic { get; set; } = false;
     }
 }

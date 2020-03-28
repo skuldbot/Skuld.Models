@@ -1,4 +1,4 @@
-﻿namespace Skuld.Core.Models.Commands
+﻿namespace Skuld.Models.Commands
 {
     public struct ParameterSkuld
     {

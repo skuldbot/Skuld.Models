@@ -1,7 +1,8 @@
 ﻿using Discord.Commands;
+using System;
 using System.Reflection;
 
-namespace Skuld.Core.Models
+namespace Skuld.Models
 {
     public class GuildModules
     {
@@ -21,9 +22,31 @@ namespace Skuld.Core.Models
 
         public bool ModuleDisabled(CommandInfo command)
         {
-            PropertyInfo propInfo = typeof(GuildModules).GetProperty(command.Module.Name);
+            PropertyInfo propertyInfo = null;
 
-            return !(bool)propInfo.GetValue(this);
+            ModuleInfo module = command.Module;
+            while(propertyInfo == null)
+            {
+                var prop = typeof(GuildModules).GetProperty(module.Name);
+
+                if(prop == null)
+                {
+                    if(module.IsSubmodule)
+                    {
+                        module = module.Parent;
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Cannot find property for value: {command.Module.Name}");
+                    }
+                }
+                else
+                {
+                    propertyInfo = prop;
+                }
+            }
+
+            return !(bool)propertyInfo.GetValue(this);
         }
     }
 }
