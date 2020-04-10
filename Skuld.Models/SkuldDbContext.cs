@@ -74,6 +74,8 @@ namespace Skuld.Models
         /// <returns>User object or null if exists</returns>
         public async Task<User> InsertOrGetUserAsync(IUser user)
         {
+            if (user.IsBot || user.IsWebhook || user.Discriminator == "0000" || user.DiscriminatorValue == 0) return null;
+
             User usr = Users.FirstOrDefault(x => x.Id == user.Id);
 
             if (usr == null)
@@ -313,16 +315,6 @@ namespace Skuld.Models
             }
 
             return gld;
-        }
-
-        public async Task<User> GetOrInsertUserAsync(IUser user)
-        {
-            var usr = Users.FirstOrDefault(x => x.Id == user.Id);
-
-            if (usr == null)
-                return await InsertOrGetUserAsync(user).ConfigureAwait(false);
-
-            return usr;
         }
 
         public async Task<SkuldConfig> GetOrInsertConfigAsync(string configId = null)
