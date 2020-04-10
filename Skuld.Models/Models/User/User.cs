@@ -32,6 +32,7 @@ namespace Skuld.Models
 
         public ulong Money { get; set; } = 2500;
         public uint Streak { get; set; } = 0;
+        public uint MaxStreak { get; set; } = 0;
         public ulong LastDaily { get; set; } = 0;
 
         public bool RecurringBlock { get; set; } = false;
