@@ -29,6 +29,7 @@
         //Starboard
         public ulong StarboardChannel { get; set; } = 0;
         public ushort StarReactAmount { get; set; } = 5;
+        public ushort StarRemoveAmount { get; set; } = 3;
         /// <summary>
         /// Can People Self Star
         /// </summary>
