@@ -52,8 +52,6 @@ namespace Skuld.Models
             Features.Remove(await Features.AsQueryable().FirstAsync(x => x.Id == guildId).ConfigureAwait(false));
             CustomCommands.RemoveRange(CustomCommands.AsQueryable().Where(x => x.GuildId == guildId));
             UserXp.RemoveRange(UserXp.AsQueryable().Where(x => x.GuildId == guildId));
-
-            await SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task DropUserAsync(ulong userId)
@@ -63,8 +61,6 @@ namespace Skuld.Models
             UserCommandUsage.RemoveRange(UserCommandUsage.AsQueryable().Where(x => x.UserId == userId));
             Reputations.RemoveRange(Reputations.AsQueryable().Where(x => x.Repee == userId || x.Reper == userId));
             UserXp.RemoveRange(UserXp.AsQueryable().Where(x => x.UserId == userId));
-
-            await SaveChangesAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -125,6 +121,47 @@ namespace Skuld.Models
             await SaveChangesAsync().ConfigureAwait(false);
 
             return Guilds.FirstOrDefault(x => x == guild);
+        }
+
+        public async Task<Guild> InsertOrGetGuildAsync(IGuild guild, string Prefix = "sk!", string MoneyName = "Woolong", string MoneyIcon = "₩")
+        {
+            var gld = Guilds.FirstOrDefault(x => x.Id == guild.Id);
+
+            if (gld == null)
+            {
+                gld = new Guild
+                {
+                    Id = guild.Id,
+                    Name = guild.Name,
+                    MoneyName = MoneyName,
+                    MoneyIcon = MoneyIcon,
+                    Prefix = Prefix,
+                };
+
+                Guilds.Add(gld);
+
+                Features.Add(new GuildFeatures
+                {
+                    Id = guild.Id
+                });
+
+                Modules.Add(new GuildModules
+                {
+                    Id = guild.Id
+                });
+
+                await SaveChangesAsync().ConfigureAwait(false);
+            }
+
+            return gld;
+        }
+
+        public async Task<SkuldConfig> InsertOrGetConfigAsync(string configId = null)
+        {
+            if (configId == null)
+                return await Configurations.AsQueryable().FirstOrDefaultAsync().ConfigureAwait(false);
+            else
+                return await Configurations.AsQueryable().FirstOrDefaultAsync(x => x.Id == configId).ConfigureAwait(false);
         }
 
         public long GetPastaKarma(ulong UserId)
@@ -282,47 +319,6 @@ namespace Skuld.Models
             {
                 return null;
             }
-        }
-
-        public async Task<Guild> GetOrInsertGuildAsync(IGuild guild, string Prefix = "sk!", string MoneyName = "Woolong", string MoneyIcon = "₩")
-        {
-            var gld = Guilds.FirstOrDefault(x => x.Id == guild.Id);
-
-            if (gld == null)
-            {
-                gld = new Guild
-                {
-                    Id = guild.Id,
-                    Name = guild.Name,
-                    MoneyName = MoneyName,
-                    MoneyIcon = MoneyIcon,
-                    Prefix = Prefix,
-                };
-
-                Guilds.Add(gld);
-
-                Features.Add(new GuildFeatures
-                {
-                    Id = guild.Id
-                });
-
-                Modules.Add(new GuildModules
-                {
-                    Id = guild.Id
-                });
-
-                await SaveChangesAsync().ConfigureAwait(false);
-            }
-
-            return gld;
-        }
-
-        public async Task<SkuldConfig> GetOrInsertConfigAsync(string configId = null)
-        {
-            if (configId == null)
-                return await Configurations.AsQueryable().FirstOrDefaultAsync().ConfigureAwait(false);
-            else
-                return await Configurations.AsQueryable().FirstOrDefaultAsync(x => x.Id == configId).ConfigureAwait(false);
         }
     }
 }

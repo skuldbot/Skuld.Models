@@ -4,6 +4,7 @@
     {
         public ulong Id { get; set; }
         public string Name { get; set; }
+        public string IconUrl { get; set; }
         public string Prefix { get; set; }
 
         //Welcome/Leaving
