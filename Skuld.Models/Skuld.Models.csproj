@@ -6,8 +6,8 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
-    <AssemblyVersion>2020.4.24.0</AssemblyVersion>
-    <FileVersion>2020.4.24.0</FileVersion>
+    <AssemblyVersion>2020.4.30.0</AssemblyVersion>
+    <FileVersion>2020.4.30.0</FileVersion>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
@@ -29,6 +29,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.3" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
   </ItemGroup>
 

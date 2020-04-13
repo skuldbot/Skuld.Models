@@ -1,5 +1,8 @@
 ﻿using Discord;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Skuld.Core.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,6 +43,38 @@ namespace Skuld.Models
             get
             {
                 return Database.CanConnect();
+            }
+        }
+
+        public async Task ApplyPendingMigrations()
+        {
+            Database.EnsureCreated();
+
+            bool hasMigrated = false;
+
+            var pendingMigrations = Database.GetPendingMigrations().ToList();
+
+            if (pendingMigrations.Any())
+            {
+                var migrator = Database.GetService<IMigrator>();
+
+                foreach (var targetMigration in pendingMigrations)
+                {
+                    migrator.Migrate(targetMigration);
+                    Log.Info("DatabaseContext", $"Successfully migrated to: {targetMigration}");
+                    hasMigrated = true;
+                }
+            }
+
+            if(hasMigrated)
+            {
+                var migrations = await Database.GetAppliedMigrationsAsync().ConfigureAwait(false);
+
+                Log.Info("DatabaseContext", $"Migrated successfully, latest applied: {migrations.LastOrDefault()}");
+            }
+            else
+            {
+                Log.Info("DatabaseContext", $"No Migrations applied, database is fully synced");
             }
         }
 
