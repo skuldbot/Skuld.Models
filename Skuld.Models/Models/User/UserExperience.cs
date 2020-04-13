@@ -10,5 +10,7 @@
         public ulong TotalXP { get; set; }
         public ulong LastGranted { get; set; }
         public bool IsVoiceExperience { get; set; }
+        public ulong MessagesSent { get; set; }
+        public ulong TimeInVoiceM { get; set; }
     }
 }
