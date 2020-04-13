@@ -9,5 +9,6 @@
         public ulong XP { get; set; }
         public ulong TotalXP { get; set; }
         public ulong LastGranted { get; set; }
+        public bool IsVoiceExperience { get; set; }
     }
 }
