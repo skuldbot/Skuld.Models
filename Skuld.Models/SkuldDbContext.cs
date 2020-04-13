@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Skuld.Core.Extensions;
 using Skuld.Core.Utilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -250,15 +251,7 @@ namespace Skuld.Models
                 {
                     if (!entries.Any(x => x.UserId == xp.UserId))
                     {
-                        var uxp = new UserExperience
-                        {
-                            UserId = xp.UserId,
-                            XP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.XP),
-                            TotalXP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.TotalXP)
-                        };
-                        uxp.Level = DatabaseUtilities.GetLevelFromTotalXP(uxp.TotalXP, 1.618);
-
-                        entries.Add(uxp);
+                        entries.Add(entries.GetJoinedExperience(xp.UserId));
                     }
                 }
 
@@ -311,15 +304,7 @@ namespace Skuld.Models
                 {
                     if (!entries.Any(x => x.UserId == xp.UserId))
                     {
-                        var uxp = new UserExperience
-                        {
-                            UserId = xp.UserId,
-                            XP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.XP),
-                            TotalXP = (ulong)experiences.Where(x => x.UserId == xp.UserId).Sum(x => (float)x.TotalXP),
-                            Level = xp.Level
-                        };
-
-                        entries.Add(uxp);
+                        entries.Add(experiences.GetJoinedExperience(xp.UserId, guild));
                     }
                 }
 
