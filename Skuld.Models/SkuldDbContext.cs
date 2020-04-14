@@ -239,23 +239,9 @@ namespace Skuld.Models
         {
             if (UserXp.Any())
             {
-                List<UserExperience> experiences = new List<UserExperience>();
-                List<UserExperience> entries = new List<UserExperience>();
+                var experiences = UserXp.ToList().Where(x => x.GuildId == 0);
 
-                foreach (var xp in UserXp)
-                {
-                    experiences.Add(xp);
-                }
-
-                foreach (var xp in experiences)
-                {
-                    if (!entries.Any(x => x.UserId == xp.UserId))
-                    {
-                        entries.Add(experiences.GetJoinedExperience(xp.UserId));
-                    }
-                }
-
-                return entries.OrderByDescending(x => x.TotalXP).ToList().AsReadOnly();
+                return experiences.OrderByDescending(x => x.TotalXP).ToList().AsReadOnly();
             }
             else
             {
