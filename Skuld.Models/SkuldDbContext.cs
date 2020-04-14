@@ -251,7 +251,7 @@ namespace Skuld.Models
                 {
                     if (!entries.Any(x => x.UserId == xp.UserId))
                     {
-                        entries.Add(entries.GetJoinedExperience(xp.UserId));
+                        entries.Add(experiences.GetJoinedExperience(xp.UserId));
                     }
                 }
 
