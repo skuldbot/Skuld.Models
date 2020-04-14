@@ -1,6 +1,5 @@
 ﻿using Discord;
 using Skuld.Core.Extensions;
-using Skuld.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
