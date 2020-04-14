@@ -10,10 +10,10 @@ namespace Skuld.Models
     public static class DatabaseUtilities
     {
         public static ulong GetXPLevelRequirement(ulong level, double growthmod)
-            => (ulong)Math.Round(Math.Pow(level, 2) * 50 * growthmod, MidpointRounding.AwayFromZero);
+            => (ulong)Math.Round(Math.Clamp((float)Math.Pow(level, growthmod) * 50, 0, 1500000), MidpointRounding.AwayFromZero);
 
         public static ulong GetLevelFromTotalXP(ulong totalxp, double growthmod)
-            => (ulong)(Math.Sqrt(totalxp / (50 * growthmod)));
+            => (ulong)Math.Round(Math.Pow(totalxp / 50, 2f).NthRoot(5), MidpointRounding.AwayFromZero);
 
         /// <summary>
         /// Gets the experience multiplier from Users Minutes in Voice
@@ -68,7 +68,7 @@ namespace Skuld.Models
 
             ulong levelAmount = 0;
 
-            var xptonextlevel = GetXPLevelRequirement(lxp.Level + 1, DiscordUtilities.PHI);
+            var xptonextlevel = GetXPLevelRequirement(lxp.Level + 1, 2.5);
 
             var currXp = lxp.XP;
 
@@ -78,7 +78,7 @@ namespace Skuld.Models
                 {
                     levelAmount++;
                     currXp = currXp.Subtract(xptonextlevel);
-                    xptonextlevel = GetXPLevelRequirement(lxp.Level + 1 + levelAmount, DiscordUtilities.PHI);
+                    xptonextlevel = GetXPLevelRequirement(lxp.Level + 1 + levelAmount, 2.5);
 
                     didLevel = true;
                 }
