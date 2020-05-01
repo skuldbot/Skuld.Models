@@ -103,7 +103,7 @@ namespace Skuld.Models
         /// Insert and returns user, else null if already exists
         /// </summary>
         /// <param name="user">Discord User to insert</param>
-        /// <returns>User object or null if exists</returns>
+        /// <returns>User object or null if unsupported user</returns>
         public async Task<User> InsertOrGetUserAsync(IUser user)
         {
             if (user.IsBot || user.IsWebhook || user.Discriminator == "0000" || user.DiscriminatorValue == 0) return null;
