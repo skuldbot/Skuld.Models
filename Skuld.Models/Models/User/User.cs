@@ -30,7 +30,7 @@ namespace Skuld.Models
         public ulong Flags { get; set; } = 0;
         public string BanReason { get; set; } = null;
 
-        public ulong Money { get; set; } = 2500;
+        public ulong Money { get; set; } = 0;
         public uint Streak { get; set; } = 0;
         public uint MaxStreak { get; set; } = 0;
         public ulong LastDaily { get; set; } = 0;
