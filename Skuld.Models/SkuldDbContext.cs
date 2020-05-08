@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Skuld.Core.Extensions;
 using Skuld.Core.Utilities;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,8 @@ namespace Skuld.Models
 {
     public class SkuldDbContext : DbContext
     {
-        public SkuldDbContext(DbContextOptions<SkuldDbContext> options) : base(options)
+        public SkuldDbContext(DbContextOptions<SkuldDbContext> options)
+            : base(options)
         {
         }
 
@@ -62,41 +62,74 @@ namespace Skuld.Models
                 foreach (var targetMigration in pendingMigrations)
                 {
                     migrator.Migrate(targetMigration);
-                    Log.Info("DatabaseContext", $"Successfully migrated to: {targetMigration}");
+                    Log.Info(
+                        "DatabaseContext", 
+                        $"Successfully migrated to: {targetMigration}"
+                    );
                     hasMigrated = true;
                 }
             }
 
             if(hasMigrated)
             {
-                var migrations = await Database.GetAppliedMigrationsAsync().ConfigureAwait(false);
+                var migrations = await Database
+                    .GetAppliedMigrationsAsync()
+                .ConfigureAwait(false);
 
-                Log.Info("DatabaseContext", $"Migrated successfully, latest applied: {migrations.LastOrDefault()}");
+                Log.Info(
+                    "DatabaseContext", 
+                    "Migrated successfully, latest applied: " +
+                    $"{migrations.LastOrDefault()}"
+                );
             }
             else
             {
-                Log.Info("DatabaseContext", $"No Migrations applied, database is fully synced");
+                Log.Info(
+                    "DatabaseContext", 
+                    $"No Migrations applied, database is fully synced"
+                );
             }
         }
 
         public async Task DropGuildAsync(ulong guildId)
         {
-            Guilds.Remove(await Guilds.AsQueryable().FirstAsync(x => x.Id == guildId).ConfigureAwait(false));
+            Guilds.Remove(await Guilds.AsQueryable()
+                .FirstAsync(x => x.Id == guildId).ConfigureAwait(false));
 
-            Modules.Remove(await Modules.AsQueryable().FirstAsync(x => x.Id == guildId).ConfigureAwait(false));
-            IAmRoles.RemoveRange(IAmRoles.AsQueryable().Where(x => x.GuildId == guildId));
-            Features.Remove(await Features.AsQueryable().FirstAsync(x => x.Id == guildId).ConfigureAwait(false));
-            CustomCommands.RemoveRange(CustomCommands.AsQueryable().Where(x => x.GuildId == guildId));
-            UserXp.RemoveRange(UserXp.AsQueryable().Where(x => x.GuildId == guildId));
+            Modules.Remove(await Modules.AsQueryable()
+                .FirstAsync(x => x.Id == guildId).ConfigureAwait(false));
+
+            IAmRoles.RemoveRange(IAmRoles.AsQueryable()
+                .Where(x => x.GuildId == guildId));
+
+            Features.Remove(await Features.AsQueryable()
+                .FirstAsync(x => x.Id == guildId).ConfigureAwait(false));
+
+            CustomCommands.RemoveRange(
+                CustomCommands.AsQueryable().Where(x => x.GuildId == guildId)
+            );
+
+            UserXp.RemoveRange(
+                UserXp.AsQueryable().Where(x => x.GuildId == guildId)
+            );
         }
 
         public async Task DropUserAsync(ulong userId)
         {
-            Users.Remove(await Users.AsQueryable().FirstAsync(x => x.Id == userId).ConfigureAwait(false));
-            Pastas.RemoveRange(Pastas.AsQueryable().Where(x => x.OwnerId == userId));
-            UserCommandUsage.RemoveRange(UserCommandUsage.AsQueryable().Where(x => x.UserId == userId));
-            Reputations.RemoveRange(Reputations.AsQueryable().Where(x => x.Repee == userId || x.Reper == userId));
-            UserXp.RemoveRange(UserXp.AsQueryable().Where(x => x.UserId == userId));
+            Users.Remove(await Users.AsQueryable()
+                .FirstAsync(x => x.Id == userId).ConfigureAwait(false));
+
+            Pastas.RemoveRange(Pastas.AsQueryable()
+                .Where(x => x.OwnerId == userId));
+
+            UserCommandUsage.RemoveRange(UserCommandUsage.AsQueryable()
+                .Where(x => x.UserId == userId));
+
+            Reputations.RemoveRange(Reputations.AsQueryable()
+                .Where(x => x.Repee == userId || x.Reper == userId));
+
+            UserXp.RemoveRange(UserXp.AsQueryable()
+                .Where(x => x.UserId == userId));
         }
 
         /// <summary>
@@ -106,7 +139,10 @@ namespace Skuld.Models
         /// <returns>User object or null if unsupported user</returns>
         public async Task<User> InsertOrGetUserAsync(IUser user)
         {
-            if (user.IsBot || user.IsWebhook || user.Discriminator == "0000" || user.DiscriminatorValue == 0) return null;
+            if (user.IsBot || 
+                user.IsWebhook || 
+                user.Discriminator == "0000" || 
+                user.DiscriminatorValue == 0) return null;
 
             User usr = Users.FirstOrDefault(x => x.Id == user.Id);
 
@@ -114,7 +150,8 @@ namespace Skuld.Models
             {
                 return await InsertOrGetUserAsync(new User
                 {
-                    AvatarUrl = user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl(),
+                    AvatarUrl = 
+                        user.GetAvatarUrl() ?? user.GetDefaultAvatarUrl(),
                     Id = user.Id,
                     Username = user.Username
                 }).ConfigureAwait(false);
@@ -159,7 +196,10 @@ namespace Skuld.Models
             return Guilds.FirstOrDefault(x => x == guild);
         }
 
-        public async Task<Guild> InsertOrGetGuildAsync(IGuild guild, string Prefix = "sk!", string MoneyName = "Woolong", string MoneyIcon = "₩")
+        public async Task<Guild> InsertOrGetGuildAsync(IGuild guild, 
+            string Prefix = "sk!", 
+            string MoneyName = "Woolong", 
+            string MoneyIcon = "₩")
         {
             var gld = Guilds.FirstOrDefault(x => x.Id == guild.Id);
 
@@ -192,7 +232,9 @@ namespace Skuld.Models
             return gld;
         }
 
-        public async Task<SkuldConfig> InsertOrGetConfigAsync(string configId = null)
+        public async Task<SkuldConfig> InsertOrGetConfigAsync(
+            string configId = null
+        )
         {
             if (configId == null)
                 return await Configurations.AsQueryable().FirstOrDefaultAsync().ConfigureAwait(false);
@@ -206,12 +248,16 @@ namespace Skuld.Models
 
             if (Pastas.Any())
             {
-                var ownedpastas = Pastas.ToList().Where(x => x.OwnerId == UserId);
+                var ownedpastas = Pastas.ToList()
+                    .Where(x => x.OwnerId == UserId);
+
                 var pastaVotes = new List<PastaVotes>();
 
                 foreach (var pasta in ownedpastas)
                 {
-                    var p = PastaVotes.FirstOrDefault(x => x.PastaId == pasta.Id);
+                    var p = PastaVotes.FirstOrDefault(
+                        x => x.PastaId == pasta.Id
+                    );
 
                     if (p != null)
                         pastaVotes.Add(p);
@@ -235,13 +281,15 @@ namespace Skuld.Models
             return returnkarma;
         }
 
-        public IReadOnlyList<UserExperience> GetOrderedGlobalExperienceLeaderboard()
+        public IReadOnlyList<UserExperience> 
+            GetOrderedGlobalExperienceLeaderboard()
         {
             if (UserXp.Any())
             {
                 var experiences = UserXp.ToList().Where(x => x.GuildId == 0);
 
-                return experiences.OrderByDescending(x => x.TotalXP).ToList().AsReadOnly();
+                return experiences.OrderByDescending(x => x.TotalXP)
+                    .ToList().AsReadOnly();
             }
             else
             {
@@ -271,7 +319,8 @@ namespace Skuld.Models
             }
         }
 
-        public async Task<IReadOnlyList<UserExperience>> GetOrderedGuildExperienceLeaderboardAsync(IGuild guild)
+        public async Task<IReadOnlyList<UserExperience>> 
+            GetOrderedGuildExperienceLeaderboardAsync(IGuild guild)
         {
             if (UserXp.Any())
             {
@@ -279,13 +328,16 @@ namespace Skuld.Models
 
                 foreach (var xp in UserXp)
                 {
-                    if (await guild.GetUserAsync(xp.UserId).ConfigureAwait(false) != null)
+                    var gldUsr = await guild.GetUserAsync(xp.UserId)
+                        .ConfigureAwait(false);
+                    if (gldUsr != null)
                     {
                         experiences.Add(xp);
                     }
                 }
 
-                return experiences.OrderByDescending(x => x.TotalXP).ToList().AsReadOnly();
+                return experiences.OrderByDescending(x => x.TotalXP)
+                    .ToList().AsReadOnly();
             }
             else
             {
@@ -293,7 +345,8 @@ namespace Skuld.Models
             }
         }
 
-        public async Task<IReadOnlyList<User>> GetOrderedGuildMoneyLeaderboardAsync(IGuild guild)
+        public async Task<IReadOnlyList<User>> 
+            GetOrderedGuildMoneyLeaderboardAsync(IGuild guild)
         {
             if (Users.Any())
             {
@@ -301,7 +354,9 @@ namespace Skuld.Models
 
                 foreach (var user in Users)
                 {
-                    if (await guild.GetUserAsync(user.Id).ConfigureAwait(false) != null)
+                    var gldUsr = await guild.GetUserAsync(user.Id)
+                        .ConfigureAwait(false);
+                    if (gldUsr != null)
                     {
                         if (!entries.Any(x => x.Id == user.Id))
                         {
@@ -310,7 +365,8 @@ namespace Skuld.Models
                     }
                 }
 
-                return entries.OrderByDescending(x => x.Money).ToList().AsReadOnly();
+                return entries.OrderByDescending(x => x.Money)
+                    .ToList().AsReadOnly();
             }
             else
             {
