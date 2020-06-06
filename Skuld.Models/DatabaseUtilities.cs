@@ -1,21 +1,36 @@
-﻿using Discord;
-using Skuld.Core.Extensions;
+﻿using Skuld.Core.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Skuld.Models
 {
     public static class DatabaseUtilities
     {
+        /// <summary>
+        /// Gets the XP required for a specific level
+        /// </summary>
+        /// <param name="level">Level to get the requirement for</param>
+        /// <param name="growthmod">Growth modifier to use</param>
+        /// <returns>The target levels experience requirement</returns>
         public static ulong GetXPLevelRequirement(ulong level, double growthmod)
             => (ulong)Math.Round(Math.Clamp((float)Math.Pow(level, growthmod) * 50, 0, 1500000), MidpointRounding.AwayFromZero);
 
+        /// <summary>
+        /// Gets the Users current level from their total experience
+        /// </summary>
+        /// <param name="totalxp">Users total experience</param>
+        /// <param name="growthmod">Growth modifier to use</param>
+        /// <returns>Users current level</returns>
         public static ulong GetLevelFromTotalXP(ulong totalxp, double growthmod)
         {
-            var split = growthmod.ToString().Split(".");
+            ulong level = 0;
+            
+            while(totalxp > 0)
+            {
+                level++;
+                totalxp = totalxp.Subtract(GetXPLevelRequirement(level, growthmod));
+            }
 
-            return (ulong)Math.Round(Math.Pow(totalxp / 50, Convert.ToDouble(split[0])).NthRoot(Convert.ToInt32(split[1])), MidpointRounding.AwayFromZero);
+            return level;
         }
 
         /// <summary>
@@ -25,7 +40,7 @@ namespace Skuld.Models
         /// <param name="minMinutes">Minimum Minutes In voice</param>
         /// <param name="maxExperience">Maximum XP to grant</param>
         /// <param name="timeInVoice">Users time in voice by minutes</param>
-        /// <returns></returns>
+        /// <returns>The rounded int value of experience to grant</returns>
         public static int GetExpMultiFromMinutesInVoice(float expDeterminate, ulong minMinutes, ulong maxExperience, ulong timeInVoice)
         {
             if (timeInVoice < minMinutes)
