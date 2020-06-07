@@ -41,20 +41,16 @@ namespace Skuld.Models
         /// <param name="maxExperience">Maximum XP to grant</param>
         /// <param name="timeInVoice">Users time in voice by minutes</param>
         /// <returns>The rounded int value of experience to grant</returns>
-        public static int GetExpMultiFromMinutesInVoice(float expDeterminate, ulong minMinutes, ulong maxExperience, ulong timeInVoice)
+        public static ulong GetExpMultiFromMinutesInVoice(float expDeterminate, ulong minMinutes, ulong maxExperience, ulong timeInVoice)
         {
             if (timeInVoice < minMinutes)
                 return 0; //if less than minimum minutes return 0 multiplier
 
             var result = Math.Pow(expDeterminate * (timeInVoice - minMinutes), 2); //do math
 
-            if (result > maxExperience)
-                result = maxExperience; //clamp to maxExperience as limit
+            result = Math.Clamp(result, 0, maxExperience); //clamp to maxExperience as limit
 
-            if (result < 0)
-                result = 0; //if negative clamp to zero
-
-            return (int)Math.Round(result); //return rounded integral version of result
+            return (ulong)Math.Round(result); //return rounded integral version of result
         }
     }
 }
