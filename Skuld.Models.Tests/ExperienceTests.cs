@@ -10,7 +10,7 @@ namespace Skuld.Models.Tests
         {
             var res = DatabaseUtilities.GetLevelFromTotalXP(25616, DiscordUtilities.LevelModifier);
 
-            Assert.Equal<ulong>(8, res);
+            Assert.Equal<ulong>(9, res);
         }
     }
 }
