@@ -8,9 +8,19 @@ namespace Skuld.Models.Tests
         [Fact]
         public void TestGetExperienceFromLevel()
         {
-            var res = DatabaseUtilities.GetLevelFromTotalXP(25616, DiscordUtilities.LevelModifier);
+            var experience = new UserExperience
+            {
+                Level = 9,
+                TotalXP = 25616
+            };
 
-            Assert.Equal<ulong>(9, res);
+            var res = DatabaseUtilities
+                .GetLevelFromTotalXP(
+                    experience.TotalXP,
+                    DiscordUtilities.LevelModifier
+                );
+
+            Assert.Equal(experience.Level, res);
         }
     }
 }
