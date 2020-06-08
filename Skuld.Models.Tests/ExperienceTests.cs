@@ -10,7 +10,7 @@ namespace Skuld.Models.Tests
         {
             var experience = new UserExperience
             {
-                Level = 9,
+                Level = 10,
                 TotalXP = 25616
             };
 
