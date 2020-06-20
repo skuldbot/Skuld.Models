@@ -10,8 +10,8 @@ namespace Skuld.Models.Tests
         {
             var experience = new UserExperience
             {
-                Level = 10,
-                TotalXP = 25616
+                Level = 16,
+                TotalXP = 229558
             };
 
             var res = DatabaseUtilities

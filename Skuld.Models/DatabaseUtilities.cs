@@ -1,5 +1,4 @@
 ﻿using Skuld.Core.Extensions;
-using Skuld.Core.Utilities;
 using System;
 
 namespace Skuld.Models
@@ -15,6 +14,18 @@ namespace Skuld.Models
         public static ulong GetXPLevelRequirement(ulong level, double growthmod)
             => (ulong)Math.Round(Math.Clamp((float)Math.Pow(level, growthmod) * 50, 0, 1500000), MidpointRounding.AwayFromZero);
 
+        public static ulong GetStackedXPLevelRequirement(ulong level, double growthmod)
+        {
+            ulong xp = 0;
+
+            for (ulong lvl = 0; lvl < level; lvl++)
+            {
+                xp = xp.Add(GetXPLevelRequirement(lvl, growthmod));
+            }
+
+            return xp;
+        }
+
         /// <summary>
         /// Gets the Users current level from their total experience
         /// </summary>
@@ -23,17 +34,19 @@ namespace Skuld.Models
         /// <returns>Users current level</returns>
         public static ulong GetLevelFromTotalXP(ulong totalxp, double growthmod)
         {
-            if (totalxp < GetXPLevelRequirement(1, DiscordUtilities.LevelModifier)) return 0;
+            if (totalxp <= GetXPLevelRequirement(1, growthmod)) return 0;
 
-            ulong level = 1;
+            ulong level = 0;
+
+            ulong txp = 0;
             
-            while(totalxp > 0)
+            while(txp < totalxp)
             {
-                totalxp = totalxp.Subtract(GetXPLevelRequirement(level, growthmod));
+                txp += GetXPLevelRequirement(level, growthmod);
                 level++;
             }
 
-            return level;
+            return level-1;
         }
 
         /// <summary>
