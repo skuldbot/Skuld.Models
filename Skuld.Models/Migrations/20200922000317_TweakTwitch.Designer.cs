@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skuld.Models;
 
 namespace Skuld.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
-    partial class SkuldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200922000317_TweakTwitch")]
+    partial class TweakTwitch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,9 +124,6 @@ namespace Skuld.Models.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("NewTweetMessage")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.Property<string>("Prefix")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -154,9 +153,6 @@ namespace Skuld.Models.Migrations
 
                     b.Property<ulong>("StarboardChannel")
                         .HasColumnType("bigint unsigned");
-
-                    b.Property<string>("TwitchLiveMessage")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 

@@ -18,6 +18,7 @@ namespace Skuld.Models
         public bool Search { get; set; } = true;
         public bool Space { get; set; } = true;
         public bool Stats { get; set; } = true;
+        public bool ThePlace { get; set; } = true;
         public bool Weeb { get; set; } = true;
 
         public bool ModuleDisabled(CommandInfo command)
