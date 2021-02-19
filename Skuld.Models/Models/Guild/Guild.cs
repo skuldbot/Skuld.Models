@@ -1,4 +1,5 @@
-﻿namespace Skuld.Models
+﻿#pragma warning disable CA1056
+namespace Skuld.Models
 {
 	public class Guild
 	{
@@ -61,3 +62,4 @@
 		public string NewTweetMessage { get; set; }
 	}
 }
+#pragma warning restore CA1056

@@ -13,9 +13,12 @@ namespace Skuld.Models
 		public SkuldDbContext CreateDbContext(string[] args = null)
 		{
 			DotEnv.Config(filePath: Path.Combine(SkuldAppContext.BaseDirectory, ".env"));
+
+			var connStr = Environment.GetEnvironmentVariable("SKULD_CONNSTR");
+
 			var optionsBuilder = new DbContextOptionsBuilder<SkuldDbContext>();
 			optionsBuilder.UseMySql(
-				Environment.GetEnvironmentVariable("SKULD_CONNSTR"),
+				connStr,
 				x =>
 				{
 					x.EnableRetryOnFailure();

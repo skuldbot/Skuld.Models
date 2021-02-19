@@ -146,8 +146,7 @@ namespace Skuld.Models
 		{
 			if (user.IsBot ||
 				user.IsWebhook ||
-				user.Discriminator == "0000" ||
-				user.DiscriminatorValue == 0) return null;
+				user.Discriminator == null || user.Discriminator == "0000") return null;
 
 			User usr = Users.Find(user.Id);
 
@@ -178,7 +177,7 @@ namespace Skuld.Models
 
 				await SaveChangesAsync().ConfigureAwait(false);
 
-				return Users.FirstOrDefault(x => x == user);
+				return Users.Find(user.Id);
 			}
 
 			return null;
@@ -296,7 +295,7 @@ namespace Skuld.Models
 		{
 			if (Users.Any())
 			{
-				List<User> entries = new List<User>();
+				List<User> entries = new();
 
 				foreach (var user in Users)
 				{
@@ -319,7 +318,7 @@ namespace Skuld.Models
 		{
 			if (UserXp.Any())
 			{
-				List<UserExperience> experiences = new List<UserExperience>();
+				List<UserExperience> experiences = new();
 
 				foreach (var xp in UserXp)
 				{
@@ -345,7 +344,7 @@ namespace Skuld.Models
 		{
 			if (Users.Any())
 			{
-				List<User> entries = new List<User>();
+				List<User> entries = new();
 
 				foreach (var user in Users)
 				{
