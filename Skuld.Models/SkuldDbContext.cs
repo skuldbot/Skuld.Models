@@ -315,20 +315,14 @@ namespace Skuld.Models
 
 		public async Task<IReadOnlyList<UserExperience>>
 			GetOrderedGuildExperienceLeaderboardAsync(IGuild guild)
+			=> await GetOrderedGuildExperienceLeaderboardAsync(guild.Id);
+
+		public async Task<IReadOnlyList<UserExperience>>
+			GetOrderedGuildExperienceLeaderboardAsync(ulong guildId)
 		{
 			if (UserXp.Any())
 			{
-				List<UserExperience> experiences = new();
-
-				foreach (var xp in UserXp)
-				{
-					var gldUsr = await guild.GetUserAsync(xp.UserId)
-						.ConfigureAwait(false);
-					if (gldUsr != null)
-					{
-						experiences.Add(xp);
-					}
-				}
+				List<UserExperience> experiences = UserXp.AsNoTracking().Where(entry => entry.GuildId == guildId).ToList();
 
 				return experiences.OrderByDescending(x => x.TotalXP)
 					.ToList().AsReadOnly();
@@ -339,14 +333,13 @@ namespace Skuld.Models
 			}
 		}
 
-		public async Task<IReadOnlyList<User>>
-			GetOrderedGuildMoneyLeaderboardAsync(IGuild guild)
+		public async Task<IReadOnlyList<User>> GetOrderedGuildMoneyLeaderboardAsync(IGuild guild)
 		{
 			if (Users.Any())
 			{
 				List<User> entries = new();
 
-				foreach (var user in Users)
+				foreach (var user in Users.AsNoTracking())
 				{
 					var gldUsr = await guild.GetUserAsync(user.Id)
 						.ConfigureAwait(false);
