@@ -250,12 +250,12 @@ namespace Skuld.Models
 		{
 			long returnkarma = 0;
 
-			if (Pastas.Any())
+			if (Pastas.AsNoTracking().Any())
 			{
-				var ownedpastas = Pastas.ToList()
+				var ownedpastas = Pastas.AsNoTracking()
 					.Where(x => x.OwnerId == UserId);
 
-				var pastaVotes = PastaVotes.ToList().Where(x => ownedpastas.Any(z => x.PastaId == z.Id));
+				var pastaVotes = PastaVotes.AsNoTracking().Where(x => ownedpastas.Any(z => x.PastaId == z.Id));
 
 				if (pastaVotes != null)
 				{
@@ -278,9 +278,9 @@ namespace Skuld.Models
 		public IReadOnlyList<UserExperience>
 			GetOrderedGlobalExperienceLeaderboard()
 		{
-			if (UserXp.Any())
+			if (UserXp.AsNoTracking().Any())
 			{
-				var experiences = UserXp.ToList().Where(x => x.GuildId == 0);
+				var experiences = UserXp.AsNoTracking().Where(x => x.GuildId == 0);
 
 				return experiences.OrderByDescending(x => x.TotalXP)
 					.ToList().AsReadOnly();
@@ -293,7 +293,7 @@ namespace Skuld.Models
 
 		public IReadOnlyList<User> GetOrderedGlobalMoneyLeaderboard()
 		{
-			if (Users.Any())
+			if (Users.AsNoTracking().Any())
 			{
 				List<User> entries = new();
 
@@ -320,7 +320,7 @@ namespace Skuld.Models
 		public async Task<IReadOnlyList<UserExperience>>
 			GetOrderedGuildExperienceLeaderboardAsync(ulong guildId)
 		{
-			if (UserXp.Any())
+			if (UserXp.AsNoTracking().Any())
 			{
 				List<UserExperience> experiences = UserXp.AsNoTracking().Where(entry => entry.GuildId == guildId).ToList();
 
@@ -335,7 +335,7 @@ namespace Skuld.Models
 
 		public async Task<IReadOnlyList<User>> GetOrderedGuildMoneyLeaderboardAsync(IGuild guild)
 		{
-			if (Users.Any())
+			if (Users.AsNoTracking().Any())
 			{
 				List<User> entries = new();
 
@@ -363,7 +363,7 @@ namespace Skuld.Models
 
 		public PixelData GetPixel(uint x, uint y)
 		{
-			PixelData pixel = PlacePixelData.FirstOrDefault(p => p.XPos == x && p.YPos == y);
+			PixelData pixel = PlacePixelData.AsNoTracking().FirstOrDefault(p => p.XPos == x && p.YPos == y);
 
 			if (pixel == null)
 			{
