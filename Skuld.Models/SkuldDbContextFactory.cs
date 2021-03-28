@@ -12,7 +12,7 @@ namespace Skuld.Models
 	{
 		public SkuldDbContext CreateDbContext(string[] args = null)
 		{
-			DotEnv.Config(filePath: Path.Combine(SkuldAppContext.BaseDirectory, ".env"));
+			DotEnv.Load(new DotEnvOptions(envFilePaths: new[] { Path.Combine(SkuldAppContext.BaseDirectory, ".env") }));
 
 			var connStr = Environment.GetEnvironmentVariable("SKULD_CONNSTR");
 

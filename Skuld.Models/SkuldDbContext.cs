@@ -117,6 +117,30 @@ namespace Skuld.Models
 			UserXp.RemoveRange(
 				UserXp.AsQueryable().Where(x => x.GuildId == guildId)
 			);
+
+			TwitterFollows.RemoveRange(
+				TwitterFollows.AsQueryable().Where(x => x.GuildId == guildId)
+			);
+
+			TwitchFollows.RemoveRange(
+				TwitchFollows.AsQueryable().Where(x => x.GuildId == guildId)
+			);
+
+			StarboardBlacklist.RemoveRange(
+				StarboardBlacklist.AsQueryable().Where(x => x.GuildId == guildId)
+			);
+
+			StarboardWhitelist.RemoveRange(
+				StarboardWhitelist.AsQueryable().Where(x => x.GuildId == guildId)
+			);
+
+			StarboardVotes.RemoveRange(
+				StarboardVotes.AsQueryable().Where(x => x.GuildId == guildId)
+			);
+
+			GuildWeeklyPots.RemoveRange(
+				GuildWeeklyPots.AsQueryable().Where(x => x.GuildId == guildId)
+			);
 		}
 
 		public async Task DropUserAsync(ulong userId)
@@ -135,6 +159,18 @@ namespace Skuld.Models
 
 			UserXp.RemoveRange(UserXp.AsQueryable()
 				.Where(x => x.UserId == userId));
+
+			StarboardVotes.RemoveRange(
+				StarboardVotes.AsQueryable().Where(x => x.VoterId == userId)
+			);
+
+			GuildWeeklyPots.RemoveRange(
+				GuildWeeklyPots.AsQueryable().Where(x => x.UserId == userId)
+			);
+
+			PlacePixelHistory.RemoveRange(
+				PlacePixelHistory.AsQueryable().Where(x => x.ModifierId == userId)
+			);
 		}
 
 		/// <summary>
@@ -244,35 +280,6 @@ namespace Skuld.Models
 				return await Configurations.AsQueryable().FirstOrDefaultAsync().ConfigureAwait(false);
 			else
 				return await Configurations.AsQueryable().FirstOrDefaultAsync(x => x.Id == configId).ConfigureAwait(false);
-		}
-
-		public long GetPastaKarma(ulong UserId)
-		{
-			long returnkarma = 0;
-
-			if (Pastas.AsNoTracking().Any())
-			{
-				var ownedpastas = Pastas.AsNoTracking()
-					.Where(x => x.OwnerId == UserId);
-
-				var pastaVotes = PastaVotes.AsNoTracking().Where(x => ownedpastas.Any(z => x.PastaId == z.Id));
-
-				if (pastaVotes != null)
-				{
-					long upkarma = 0;
-					long downkarma = 0;
-					foreach (var pasta in pastaVotes)
-					{
-						if (pasta.Upvote)
-							upkarma += 1;
-						else
-							downkarma += 1;
-					}
-					returnkarma = upkarma - (downkarma / 5);
-				}
-			}
-
-			return returnkarma;
 		}
 
 		public IReadOnlyList<UserExperience>

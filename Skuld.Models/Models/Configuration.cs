@@ -22,7 +22,6 @@ namespace Skuld.Models
 		public string DiscordToken { get; set; } = null;
 		public string Prefix { get; set; } = "vf.";
 		public string AltPrefix { get; set; } = ".";
-		public ushort Shards { get; set; } = 1;
 
 		#endregion Discord
 
@@ -80,5 +79,15 @@ namespace Skuld.Models
 		public string TwitterAccessTok { get; set; }
 		public string TwitterAccessSec { get; set; }
 		#endregion Twitter
+
+		public string SkuldAPIBase { get; set; } = null;
+
+		public string SkuldAPIToken { get; set; } = null;
+
+		public string CachetBase { get; set; } = null;
+
+		public string CachetToken { get; set; } = null;
+
+		public int CachetShardGroup { get; set; } = -1;
 	}
 }

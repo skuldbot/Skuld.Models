@@ -2,20 +2,22 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Skuld.Models;
 
 namespace Skuld.Models.Migrations
 {
     [DbContext(typeof(SkuldDbContext))]
-    partial class SkuldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210327223425_ApiConfiguration")]
+    partial class ApiConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.4");
+                .HasAnnotation("ProductVersion", "5.0.3");
 
             modelBuilder.Entity("Skuld.Models.BlockedAction", b =>
                 {
@@ -460,15 +462,6 @@ namespace Skuld.Models.Migrations
                     b.Property<string>("B4DToken")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("CachetBase")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int>("CachetShardGroup")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CachetToken")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.Property<string>("DBotsOrgKey")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -531,6 +524,9 @@ namespace Skuld.Models.Migrations
 
                     b.Property<int>("STANDSUid")
                         .HasColumnType("int");
+
+                    b.Property<ushort>("Shards")
+                        .HasColumnType("smallint unsigned");
 
                     b.Property<string>("SkuldAPIBase")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

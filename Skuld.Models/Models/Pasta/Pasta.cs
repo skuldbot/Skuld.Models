@@ -1,4 +1,7 @@
-﻿namespace Skuld.Models
+﻿using Skuld.Core.Extensions.Verification;
+using Skuld.Core.Utilities;
+
+namespace Skuld.Models
 {
     public class Pasta
     {
@@ -10,7 +13,9 @@
 
         public bool IsOwner(User user)
         {
-            return OwnerId == user.Id || (user.Flags & 1 << 0) != 0 || (user.Flags & 1 << 1) != 0;
+            return OwnerId == user.Id ||
+                user.Flags.IsBitSet(DiscordUtilities.BotCreator) ||
+                user.Flags.IsBitSet(DiscordUtilities.BotAdmin);
         }
     }
 }
