@@ -60,6 +60,10 @@ namespace Skuld.Models
 		public string TwitchLiveMessage { get; set; }
 		//Twitter Notification
 		public string NewTweetMessage { get; set; }
+
+		public bool JoinImage { get; set; } = false;
+		public bool LeaveImage { get; set; } = false;
+		public double XPModifier { get; set; } = 1.0;
 	}
 }
 #pragma warning restore CA1056
