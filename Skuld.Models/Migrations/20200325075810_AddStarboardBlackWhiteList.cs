@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿#pragma warning disable CA1062
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Skuld.Models.Migrations
@@ -29,3 +30,4 @@ namespace Skuld.Models.Migrations
 		}
 	}
 }
+#pragma warning restore CA1062

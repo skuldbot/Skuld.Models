@@ -2,21 +2,21 @@
 
 namespace Skuld.Models.Migrations
 {
-    public partial class AddTimeZoneToUser : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<string>(
-                name: "TimeZone",
-                table: "Users",
-                nullable: true);
-        }
+	public partial class AddTimeZoneToUser : Migration
+	{
+		protected override void Up(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.AddColumn<string>(
+				name: "TimeZone",
+				table: "Users",
+				nullable: true);
+		}
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "TimeZone",
-                table: "Users");
-        }
-    }
+		protected override void Down(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.DropColumn(
+				name: "TimeZone",
+				table: "Users");
+		}
+	}
 }

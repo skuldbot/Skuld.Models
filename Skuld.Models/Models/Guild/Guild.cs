@@ -28,17 +28,17 @@ namespace Skuld.Models
 		public string MoneyIcon { get; set; }
 
 		//Starboard
-		public ulong StarboardChannel { get; set; } = 0;
+		public ulong StarboardChannel { get; set; }
 		public ushort StarReactAmount { get; set; } = 5;
 		public ushort StarRemoveAmount { get; set; } = 3;
 		/// <summary>
 		/// Can People Self Star
 		/// </summary>
-		public bool SelfStarring { get; set; } = false;
+		public bool SelfStarring { get; set; }
 		/// <summary>
 		/// Delete Starboard Message if Source Message is Deleted
 		/// </summary>
-		public bool StarDeleteIfSourceDelete { get; set; } = false;
+		public bool StarDeleteIfSourceDelete { get; set; }
 		///<summary>
 		///Reaction to react with on message
 		///</summary>
@@ -61,8 +61,8 @@ namespace Skuld.Models
 		//Twitter Notification
 		public string NewTweetMessage { get; set; }
 
-		public bool JoinImage { get; set; } = false;
-		public bool LeaveImage { get; set; } = false;
+		public bool JoinImage { get; set; }
+		public bool LeaveImage { get; set; }
 		public double XPModifier { get; set; } = 1.0;
 	}
 }

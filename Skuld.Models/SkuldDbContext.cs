@@ -133,7 +133,8 @@ namespace Skuld.Models
 		/// <returns>User object or null if unsupported user</returns>
 		public async Task<User> InsertOrGetUserAsync(IUser user)
 		{
-			if (user.IsBot ||
+			if (user is null ||
+				user.IsBot ||
 				user.IsWebhook ||
 				user.Discriminator == null || user.Discriminator == "0000") return null;
 
@@ -160,7 +161,9 @@ namespace Skuld.Models
 		/// <returns>User object or null if exists</returns>
 		public async Task<User> InsertOrGetUserAsync(User user)
 		{
-			if (!Users.Any(x => x.Id == user.Id))
+			if (user is null) return null;
+
+			if (!Users.AsNoTracking().Any(x => x.Id == user.Id))
 			{
 				Users.Add(user);
 
@@ -174,6 +177,8 @@ namespace Skuld.Models
 
 		public async Task<Guild> InsertGuildAsync(Guild guild)
 		{
+			if (guild is null) return null;
+
 			Guilds.Add(guild);
 			Features.Add(new GuildFeatures
 			{
@@ -194,6 +199,8 @@ namespace Skuld.Models
 			string MoneyName = "Woolong",
 			string MoneyIcon = "₩")
 		{
+			if (guild is null) return null;
+
 			var gld = Guilds.Find(guild.Id);
 
 			if (gld == null)
@@ -273,12 +280,16 @@ namespace Skuld.Models
 			}
 		}
 
-		public async Task<IReadOnlyList<UserExperience>>
-			GetOrderedGuildExperienceLeaderboardAsync(IGuild guild)
-			=> await GetOrderedGuildExperienceLeaderboardAsync(guild.Id);
+		public IReadOnlyList<UserExperience>
+			GetOrderedGuildExperienceLeaderboard(IGuild guild)
+		{
+			if (guild is null) return null;
 
-		public async Task<IReadOnlyList<UserExperience>>
-			GetOrderedGuildExperienceLeaderboardAsync(ulong guildId)
+			return GetOrderedGuildExperienceLeaderboard(guild.Id);
+		}
+
+		public IReadOnlyList<UserExperience>
+			GetOrderedGuildExperienceLeaderboard(ulong guildId)
 		{
 			if (UserXp.AsNoTracking().Any())
 			{
@@ -295,6 +306,8 @@ namespace Skuld.Models
 
 		public async Task<IReadOnlyList<User>> GetOrderedGuildMoneyLeaderboardAsync(IGuild guild)
 		{
+			if (guild is null) return null;
+
 			if (Users.AsNoTracking().Any())
 			{
 				List<User> entries = new();

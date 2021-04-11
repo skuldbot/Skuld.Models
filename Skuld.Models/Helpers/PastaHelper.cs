@@ -8,6 +8,8 @@ namespace Skuld.Models.Helpers
 	{
 		public static ulong GetPastaKarma(IEnumerable<IGrouping<ulong, PastaVotes>> groupedPastas, IEnumerable<Pasta> pastas)
 		{
+			if (groupedPastas is null) return 0;
+
 			double upkarma = 0;
 			double downkarma = 0;
 

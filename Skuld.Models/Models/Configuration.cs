@@ -15,13 +15,13 @@ namespace Skuld.Models
 			Id = Guid.NewGuid().ToString();
 		}
 
-		public bool IsDevelopmentBuild { get; set; } = false;
+		public bool IsDevelopmentBuild { get; set; }
 
 		#region Discord
 
-		public string DiscordToken { get; set; } = null;
-		public string Prefix { get; set; } = "vf.";
-		public string AltPrefix { get; set; } = ".";
+		public string DiscordToken { get; set; }
+		public string Prefix { get; set; } = "sk!";
+		public string AltPrefix { get; set; } = "skuld.";
 
 		#endregion Discord
 
@@ -29,7 +29,7 @@ namespace Skuld.Models
 
 		public string WebsocketHost { get; set; } = "0.0.0.0";
 		public ushort WebsocketPort { get; set; } = 37821;
-		public bool WebsocketSecure { get; set; } = false;
+		public bool WebsocketSecure { get; set; }
 
 		#endregion Websocket
 
@@ -50,10 +50,10 @@ namespace Skuld.Models
 
 		public string GithubClientUsername { get; set; } = "";
 		public string GithubClientPassword { get; set; } = "";
-		public long GithubRepository { get; set; } = 0;
+		public long GithubRepository { get; set; }
 		public string GoogleAPI { get; set; } = "";
 		public string GoogleCx { get; set; } = "";
-		public int STANDSUid { get; set; } = 0;
+		public int STANDSUid { get; set; }
 		public string STANDSToken { get; set; } = "";
 		public string TwitchToken { get; set; } = "";
 		public string TwitchClientID { get; set; } = "";
@@ -80,13 +80,13 @@ namespace Skuld.Models
 		public string TwitterAccessSec { get; set; }
 		#endregion Twitter
 
-		public string SkuldAPIBase { get; set; } = null;
+		public string SkuldAPIBase { get; set; }
 
-		public string SkuldAPIToken { get; set; } = null;
+		public string SkuldAPIToken { get; set; }
 
-		public string CachetBase { get; set; } = null;
+		public string CachetBase { get; set; }
 
-		public string CachetToken { get; set; } = null;
+		public string CachetToken { get; set; }
 
 		public int CachetShardGroup { get; set; } = -1;
 	}

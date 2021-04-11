@@ -1,22 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿#pragma warning disable CA1062
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Skuld.Models.Migrations
 {
-    public partial class AddGuildName : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "Guilds",
-                nullable: true);
-        }
+	public partial class AddGuildName : Migration
+	{
+		protected override void Up(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.AddColumn<string>(
+				name: "Name",
+				table: "Guilds",
+				nullable: true);
+		}
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Name",
-                table: "Guilds");
-        }
-    }
+		protected override void Down(MigrationBuilder migrationBuilder)
+		{
+			migrationBuilder.DropColumn(
+				name: "Name",
+				table: "Guilds");
+		}
+	}
 }
+#pragma warning restore CA1062
