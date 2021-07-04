@@ -1,7 +1,6 @@
 ﻿using dotenv.net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Skuld.Core;
 using System;
 using System.IO;
@@ -25,7 +24,6 @@ namespace Skuld.Models
 				x =>
 				{
 					x.EnableRetryOnFailure();
-					x.CharSet(CharSet.Utf8Mb4);
 				});
 
 			return new SkuldDbContext(optionsBuilder.Options);
